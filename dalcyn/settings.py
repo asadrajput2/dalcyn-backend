@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     # Local custom apps
     'authentication',
     'backend',
-    'frontend',
 ]
 
 REST_FRAMEWORK = {
