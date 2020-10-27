@@ -4,6 +4,15 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 
 
+class Address(models.Model):
+    building = models.CharField(max_length=128, blank=True, null=True)
+    locality = models.CharField(max_length=128, blank=True, null=True)
+    city = models.CharField(max_length=128, blank=True, null=True)
+    district = models.CharField(max_length=128, blank=True, null=True)
+    state = models.CharField(max_length=128, blank=True, null=True)
+    country = models.CharField(max_length=128, blank=True, null=True)
+
+
 class CustomUserManager(BaseUserManager):
     """
     Custom user model manager where email is the unique identifiers
@@ -40,6 +49,8 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
+    address = models.ForeignKey(
+        Address, on_delete=models.CASCADE, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
