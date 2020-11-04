@@ -6,7 +6,8 @@ from .models import (
     BottomLevel,
     Crop,
     Farm,
-    Prediction
+    Prediction,
+    Node,
 )
 
 admin.site.register(TopLevel)
@@ -15,3 +16,4 @@ admin.site.register(BottomLevel)
 admin.site.register(Crop)
 admin.site.register(Farm)
 admin.site.register(Prediction)
+admin.site.register(Node)

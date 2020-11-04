@@ -1,42 +1,6 @@
 from django.db import models
 from django_currentuser.db.models import CurrentUserField
-from authentication.models import Address
-
-
-class Parameter(models.Model):
-    soil_moisture = models.FloatField(blank=True, null=True)
-    soil_temp = models.FloatField(blank=True, null=True)
-    salinity = models.FloatField(blank=True, null=True)
-    ph = models.FloatField(blank=True, null=True)
-    nitrogen = models.FloatField(blank=True, null=True)
-    phosphorus = models.FloatField(blank=True, null=True)
-    potassium = models.FloatField(blank=True, null=True)
-
-
-class TopLevel(Parameter):
-    carbon_dioxide = models.FloatField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = "TopLevelParam"
-
-
-class MiddleLevel(Parameter):
-    oxygen = models.FloatField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = "MiddleLevelParam"
-
-
-class BottomLevel(Parameter):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = "BottomLevelParam"
+from authentication.models import Address, CustomUser
 
 
 class Crop(models.Model):
@@ -84,6 +48,51 @@ class Farm(models.Model):
 
     class Meta:
         db_table = "Farm"
+
+
+class Node(models.Model):
+    farm = models.ForeignKey(Farm, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.farm.name + ' Node ' + str(self.id)
+
+    class Meta:
+        db_table = "Node"
+
+
+class Parameter(models.Model):
+    soil_moisture = models.FloatField(blank=True, null=True)
+    soil_temp = models.FloatField(blank=True, null=True)
+    salinity = models.FloatField(blank=True, null=True)
+    ph = models.FloatField(blank=True, null=True)
+    nitrogen = models.FloatField(blank=True, null=True)
+    phosphorus = models.FloatField(blank=True, null=True)
+    potassium = models.FloatField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    node = models.ForeignKey(Node, on_delete=models.CASCADE)
+
+
+class TopLevel(Parameter):
+    carbon_dioxide = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        db_table = "TopLevelParam"
+
+
+class MiddleLevel(Parameter):
+    oxygen = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        db_table = "MiddleLevelParam"
+
+
+class BottomLevel(Parameter):
+
+    class Meta:
+        db_table = "BottomLevelParam"
 
 
 class Prediction(models.Model):
