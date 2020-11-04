@@ -8,23 +8,24 @@ To use the server:
 1. Download the code
 
 1. Make a python environment 
-`python3 -m venv <environment name>`
+>`python3 -m venv <environment name>`
 
 2. Activate the environment
-- - For windows:
-`./<environment name>/Scripts/activate`
 
-- - For Linux:
-`source <environment name>/bin/activate`
+    - For Windows:
+    >`./<environment name>/Scripts/activate`
+
+    - For Linux:
+    >`source <environment name>/bin/activate`
 
 3. Download the requirements
-`pip install -r requirements.txt`
+>`pip install -r requirements.txt`
 
 4. Run migrations to create sqlite database
-`python3 ./manage.py migrate`
+>`python3 ./manage.py migrate`
 
 5. Run server
-`python3 ./manage.py runserver`
+>`python3 ./manage.py runserver`
 
 
-> API documentation is available at `/api_doc` and documentation with Swaggwe UI at `/api_doc_swagger`
+> API documentation is available at `/api_doc` and documentation with Swagger UI at `/api_doc_swagger`
